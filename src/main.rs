@@ -87,7 +87,7 @@ impl eframe::App for SnippyApp {
 fn capture_primary() -> Result<RgbaImage> {
     let screen = Monitor::all().context("enumerating displays")?.into_iter().next().context("no display found")?;
     let image = screen.capture_image().context("capturing primary display")?;
-    RgbaImage::from_raw(image.width() as u32, image.height() as u32, image.buffer().to_vec()).context("capture buffer has an unexpected size")
+    RgbaImage::from_raw(image.width() as u32, image.height() as u32, image.buffer_like().to_vec()).context("capture buffer has an unexpected size")
 }
 
 fn timestamp() -> String {
