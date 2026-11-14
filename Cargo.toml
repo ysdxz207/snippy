@@ -1,0 +1,22 @@
+[package]
+name = "snippy"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Cross-platform screenshot, annotation, OCR and QR utility"
+repository = "https://github.com/ysdxz207/snippy"
+
+[dependencies]
+anyhow = "1"
+directories = "6"
+eframe = { version = "0.29", default-features = true }
+egui = "0.29"
+image = "0.25"
+screenshots = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true
