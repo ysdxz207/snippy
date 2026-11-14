@@ -4,7 +4,7 @@ use anyhow::{Context, Result};
 use directories::ProjectDirs;
 use eframe::egui::{self, ColorImage, TextureHandle};
 use image::RgbaImage;
-use screenshots::Screen;
+use xcap::Monitor;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
@@ -85,8 +85,8 @@ impl eframe::App for SnippyApp {
 }
 
 fn capture_primary() -> Result<RgbaImage> {
-    let screen = Screen::all().context("enumerating displays")?.into_iter().next().context("no display found")?;
-    let image = screen.capture().context("capturing primary display")?;
+    let screen = Monitor::all().context("enumerating displays")?.into_iter().next().context("no display found")?;
+    let image = screen.capture_image().context("capturing primary display")?;
     RgbaImage::from_raw(image.width() as u32, image.height() as u32, image.buffer().to_vec()).context("capture buffer has an unexpected size")
 }
 
