@@ -3,7 +3,7 @@ use std::{fs, path::PathBuf};
 use anyhow::{Context, Result};
 use directories::ProjectDirs;
 use eframe::egui::{self, ColorImage, TextureHandle};
-use image::RgbaImage;
+use image::{GenericImageView, RgbaImage};
 use xcap::Monitor;
 use serde::{Deserialize, Serialize};
 
