@@ -87,7 +87,21 @@ impl eframe::App for SnippyApp {
 fn capture_primary() -> Result<RgbaImage> {
     let screen = Monitor::all().context("enumerating displays")?.into_iter().next().context("no display found")?;
     let image = screen.capture_image().context("capturing primary display")?;
-    RgbaImage::from_raw(image.width() as u32, image.height() as u32, image.buffer_like().to_vec()).context("capture buffer has an unexpected size")
+    image_from_buffer(image.width() as u32, image.height() as u32, image.buffer_like().to_vec())
+}
+
+fn image_from_buffer(width: u32, height: u32, buffer: Vec<u8>) -> Result<RgbaImage> {
+    RgbaImage::from_raw(width, height, buffer).context("capture buffer has an unexpected size")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn rejects_malformed_capture_buffer() {
+        assert!(image_from_buffer(2, 2, vec![0; 3]).is_err());
+    }
 }
 
 fn timestamp() -> String {
