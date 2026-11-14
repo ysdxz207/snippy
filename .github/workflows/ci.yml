@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Linux capture dependencies
-        run: sudo apt-get update && sudo apt-get install -y libpipewire-0.3-dev libspa-0.2-dev libxcb1-dev libxrandr-dev libegl1-mesa-dev libgl1-mesa-dev
+        run: sudo apt-get update && sudo apt-get install -y libpipewire-0.3-dev libspa-0.2-dev libxcb1-dev libxrandr-dev libegl1-mesa-dev libgl1-mesa-dev libgbm-dev
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo check --all-targets
       - run: cargo test --all-targets
